@@ -1581,7 +1581,12 @@ const QueryBuilder = function() {
                 }
 
                 sql += cases.substr(0, cases.length - 2);
-                sql += ' WHERE ' + where + index + ' IN (' + ids.join(',') + ')';
+                if(where) {
+                    sql += where;
+                } else {
+                    sql += ' WHERE ';
+                }
+                sql += index + ' IN (' + ids.join(',') + ')';
 
                 // Add query to batch
                 batches.push(sql);
