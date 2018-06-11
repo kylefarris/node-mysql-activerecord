@@ -140,7 +140,7 @@ const QueryExec = function (qb, conn) {
             }
 
             const sqls = qb.update_batch(table,set,index,where);
-            const results = null;
+            let results = null;
             const errors = [];
 
             // Execute each batch of (at least) 100
