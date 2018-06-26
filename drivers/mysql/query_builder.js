@@ -199,14 +199,19 @@ const QueryBuilder = function() {
         // If a parenthesis is found we know that we do not need to
         // escape the data or add a prefix.
         if (item.indexOf('(') !== -1 || item.indexOf("'") !== -1) {
-            const has_alias = item.lastIndexOf(')');
+            const has_alias = item.indexOf('AS') !== -1 ? true : false;
+            if (!has_alias) {
+                return item
+            }
+            const last_closing_bracket = item.lastIndexOf(')');
             let alias;
-            if (has_alias >= 0) {
-                alias = item.substr(has_alias + 1).replace(/\sAS\s/i,'').trim();
+            if (last_closing_bracket >= 0) {
+                alias = item.substr(last_closing_bracket + 1).replace(/\sAS\s/i,'').trim();
                 alias = escape_identifiers(alias);
-                if (alias != '')
+                if (alias != '') {
                     alias = ' AS ' + alias;
-                item = item.substr(0,has_alias + 1);
+                }
+                item = item.substr(0, last_closing_bracket + 1);
             } else {
                 alias = '';
             }
