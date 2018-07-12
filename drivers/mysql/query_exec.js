@@ -101,8 +101,16 @@ const QueryExec = function (qb, conn) {
             exec(sql,callback);
         },
 
-        insert_batch: function(table,set,callback) {
-            const sql = qb.insert_batch(table,set);
+        insert_batch: function(table,set,ignore,on_dupe,callback) {
+            if (typeof ignore === 'function') {
+                    callback = ignore;
+                    ignore = null;
+             }
+             else if (typeof on_dupe === 'function') {
+                  callback = on_dupe;
+                  on_dupe = null;
+            }
+            const sql = qb.insert_batch(table,set,ignore,on_dupe);
             qb.reset_query(sql);
             exec(sql,callback);
         },
