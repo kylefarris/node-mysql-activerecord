@@ -96,7 +96,7 @@ const QueryExec = function (qb, conn) {
 				callback = on_dupe;
 				on_dupe = null;
 			}
-			const sql = qb.insert_ignore(table,set,on_dupe);
+			const sql = qb.insert(table,set,true,on_dupe);
             qb.reset_query(sql);
             exec(sql,callback);
         },
