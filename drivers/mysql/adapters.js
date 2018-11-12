@@ -137,7 +137,6 @@ const Adapters = function(nqb) {
                 pool.releaseConnection(connection);
             }
         }, qb, qe);
-
         return adapter;
     };
 
@@ -222,8 +221,9 @@ const Adapters = function(nqb) {
             case 'pool':
                 return new Pool();
             case 'single':
-            default:
+            default:{
                 return new Adapter({});
+            }
         }
     }
 
