@@ -20,7 +20,7 @@ describe('MSSQL: get()', () => {
         qb.get(['galaxies','star_systems','planets']);
         qb.from_array.should.eql(['[galaxies]','[star_systems]','[planets]']);
     });
-    it('should not accept anything but a non-empty string or an array of non-empty strings', () => {
+    it('should not accept anything but a non-empty string or an array of non-empty strings as first parameter', () => {
         qb.reset_query();
         expect(() => qb.get(),                        'nothing provided').to.throw(Error);
         expect(() => qb.get({foo: 'bar'}),            'object provided').to.throw(Error);
